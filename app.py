@@ -3,7 +3,6 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from PIL import Image
-from preprocess import preprocess_text
 from sklearn.feature_extraction.text import TfidfVectorizer
 import pickle
 
@@ -35,13 +34,10 @@ def main():
 
         if st.button("Predict", help="Click here to predict the sentiment of text"):
 
-            preprocessed_text = preprocess_text(text)
-            preprocessed_text = ' '.join(preprocessed_text)
-
             tfidf = TfidfVectorizer()
             text_feature = tfidf.fit_transform(balanced_df.tokenized_text)
             
-            text_feature = tfidf.transform([preprocessed_text])
+            text_feature = tfidf.transform([text])
 
             prediction = model.predict(text_feature)
             #st.write(prediction)
